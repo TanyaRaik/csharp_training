@@ -13,7 +13,7 @@ namespace WebAddressbookTests
     public class GrourRemovalTests : TestBase
     {
         [Test]
-        public void GrourRemovalTest()
+        public void GroupRemovalTest()
         {
             OpenMainPage();
             Login(new AccountData("admin", "secret"));
