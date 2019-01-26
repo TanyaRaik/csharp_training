@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading;
+using System.Threading.Tasks;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
@@ -9,12 +10,11 @@ using OpenQA.Selenium.Support.UI;
 
 namespace WebAddressbookTests
 {
-    [TestFixture]
-    public class CreateContactInAddressBook
+    public class TestBase
     {
-        private IWebDriver driver;
+        protected IWebDriver driver;
         private StringBuilder verificationErrors;
-        private string baseURL;
+        protected string baseURL;
         private bool acceptNextAlert = true;
 
         [SetUp]
@@ -39,52 +39,80 @@ namespace WebAddressbookTests
             Assert.AreEqual("", verificationErrors.ToString());
         }
 
-        [Test]
-        public void CreateContactTest()
+        protected void OpenMainPage()
         {
-            OpenMainPage();
-            Login(new AccountData("admin", "secret"));
-            OpenContactForm();
-            ContactData contact = new ContactData("a");
-            contact.MiddleName = "MiddleName";
-            contact.LastName = "LastName";
-            contact.Nickname = "Nickname";
-            contact.Title = "Title";
-            contact.Company = "Company";
-            contact.Address = "Address";
-            contact.Home = "Home";
-            contact.Mobile = "111";
-            contact.Work = "Work";
-            contact.Fax = "222";
-            contact.Email1 = "b@gmail.com";
-            contact.Email2 = "b1@gmail.com";
-            contact.Email3 = "b2@gmail.com";
-            contact.Homepage = "Homepage";
-            contact.SAddress = "b";
-            contact.SHome = "b";
-            contact.SNotice = "b";
-
-
-            FillContactForm(contact);
-
-            SubmitContactCreation();
-
-            Logout();
+            // Open main page
+            driver.Navigate().GoToUrl(baseURL);
         }
 
-        private void Logout()
+        protected void InitGroupCreation()
+        {
+            // Init new creation
+            driver.FindElement(By.Name("new")).Click();
+        }
+
+        protected void FillGroupForm(GroupData group)
+        {
+            // Fill group form
+            driver.FindElement(By.Name("group_name")).Clear();
+            driver.FindElement(By.Name("group_name")).SendKeys(group.Name);
+            driver.FindElement(By.Name("group_header")).Clear();
+            driver.FindElement(By.Name("group_header")).SendKeys(group.Header);
+            driver.FindElement(By.Name("group_footer")).Clear();
+            driver.FindElement(By.Name("group_footer")).SendKeys(group.Footer);
+        }
+
+        protected void SubmitGroupCreation()
+        {
+            // Submit group creation
+            driver.FindElement(By.Name("submit")).Click();
+        }
+
+        protected void Login(AccountData account)
+        {
+            // Login
+            driver.FindElement(By.Name("user")).Click();
+            driver.FindElement(By.Name("user")).Clear();
+            driver.FindElement(By.Name("user")).SendKeys(account.Username);
+            driver.FindElement(By.Name("pass")).Clear();
+            driver.FindElement(By.Name("pass")).SendKeys(account.Password);
+            driver.FindElement(By.XPath("//input[@value='Login']")).Click();
+        }
+
+        protected void GoToGroupPage()
+        {
+            // Go to group page
+            driver.FindElement(By.LinkText("groups")).Click();
+        }
+
+        protected void Logout()
         {
             //Logout
             driver.FindElement(By.LinkText("Logout")).Click();
         }
 
-        private void SubmitContactCreation()
+        protected void ReturnToGroupsPage()
+        {
+            driver.FindElement(By.LinkText("group page")).Click();
+        }
+
+        protected void RemoveGroup()
+        {
+            driver.FindElement(By.Name("delete")).Click();
+        }
+
+        protected void SelectGroup(int rowNumber)
+        {
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + rowNumber + "]")).Click();
+        }
+
+        protected void SubmitContactCreation()
         {
             //Submit Contact Creation
             driver.FindElement(By.XPath("//input[@value='Enter']")).Click();
         }
 
-        private void FillContactForm(ContactData contact)
+        protected void FillContactForm(ContactData contact)
         {
             //FillContactForm
             driver.FindElement(By.Name("firstname")).Clear();
@@ -126,75 +154,11 @@ namespace WebAddressbookTests
             driver.FindElement(By.Name("notes")).SendKeys(contact.SNotice);
         }
 
-        private void OpenContactForm()
+        protected void OpenContactForm()
         {
             //Open Contact Form
             driver.FindElement(By.LinkText("add new")).Click();
         }
 
-        private void Login(AccountData account)
-        {
-            // Login
-            driver.FindElement(By.Name("user")).Click();
-            driver.FindElement(By.Name("user")).Clear();
-            driver.FindElement(By.Name("user")).SendKeys(account.Username);
-            driver.FindElement(By.Name("pass")).Clear();
-            driver.FindElement(By.Name("pass")).SendKeys(account.Password);
-            driver.FindElement(By.XPath("//input[@value='Login']")).Click();
-        }
-
-        private void OpenMainPage()
-        {
-            // Open main page
-            driver.Navigate().GoToUrl(baseURL);
-        }
-
-        private bool IsElementPresent(By by)
-        {
-            try
-            {
-                driver.FindElement(by);
-                return true;
-            }
-            catch (NoSuchElementException)
-            {
-                return false;
-            }
-        }
-
-        private bool IsAlertPresent()
-        {
-            try
-            {
-                driver.SwitchTo().Alert();
-                return true;
-            }
-            catch (NoAlertPresentException)
-            {
-                return false;
-            }
-        }
-
-        private string CloseAlertAndGetItsText()
-        {
-            try
-            {
-                IAlert alert = driver.SwitchTo().Alert();
-                string alertText = alert.Text;
-                if (acceptNextAlert)
-                {
-                    alert.Accept();
-                }
-                else
-                {
-                    alert.Dismiss();
-                }
-                return alertText;
-            }
-            finally
-            {
-                acceptNextAlert = true;
-            }
-        }
     }
 }
