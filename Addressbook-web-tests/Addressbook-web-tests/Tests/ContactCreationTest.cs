@@ -3,9 +3,6 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using NUnit.Framework;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Firefox;
-using OpenQA.Selenium.Support.UI;
 
 namespace WebAddressbookTests
 {
@@ -16,9 +13,6 @@ namespace WebAddressbookTests
         [Test]
         public void CreateContactTest()
         {
-            OpenMainPage();
-            Login(new AccountData("admin", "secret"));
-            OpenContactForm();
             ContactData contact = new ContactData("a");
             contact.MiddleName = "MiddleName";
             contact.LastName = "LastName";
@@ -37,9 +31,35 @@ namespace WebAddressbookTests
             contact.SAddress = "b";
             contact.SHome = "b";
             contact.SNotice = "b";
-            FillContactForm(contact);
-            SubmitContactCreation();
-            Logout();
+
+            app.Contacts.Create(contact);
+            app.Logout.Logout();
+        }
+
+        [Test]
+        public void EmptyCreateContactTest()
+        {
+            ContactData contact = new ContactData("");
+            contact.MiddleName = "";
+            contact.LastName = "";
+            contact.Nickname = "";
+            contact.Title = "";
+            contact.Company = "";
+            contact.Address = "";
+            contact.Home = "";
+            contact.Mobile = "";
+            contact.Work = "";
+            contact.Fax = "";
+            contact.Email1 = "";
+            contact.Email2 = "";
+            contact.Email3 = "";
+            contact.Homepage = "";
+            contact.SAddress = "";
+            contact.SHome = "";
+            contact.SNotice = "";
+
+            app.Contacts.Create(contact);
+            app.Logout.Logout();
         }
     }
 }
