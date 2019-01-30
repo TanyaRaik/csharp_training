@@ -73,6 +73,8 @@
     <Compile Include="AppManager\LogoutHelper.cs" />
     <Compile Include="AppManager\NavigationHelper.cs" />
     <Compile Include="Learning\Square.cs" />
+    <Compile Include="Tests\ContactModificationTest.cs" />
+    <Compile Include="Tests\ContactRemovalTest.cs" />
     <Compile Include="Tests\GroupModificationTest.cs" />
     <Compile Include="Tests\TestBase.cs" />
     <Compile Include="Learning\UnitTest1.cs" />
