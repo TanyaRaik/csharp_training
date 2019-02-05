@@ -18,18 +18,24 @@ namespace WebAddressbookTests
 
         public ContactHelper RemoveContact(int v)
         {
-            SelectContact(v);
-            RemoveContact();
-            AcceptAlert();
+            if (IsElementPresent(By.XPath("//tr[@name='entry'][1]//img[@title='Edit']")))
+            {
+                SelectContact(v);
+                RemoveContact();
+                AcceptAlert();
+            }
             return this;
         }
 
         public ContactHelper Modify(ContactData newData)
         {
-            InitContactModification();
-            FillContactForm(newData);
-            SubmitContactModification();
-            return this;
+            if (IsElementPresent(By.XPath("//tr[@name='entry'][1]//img[@title='Edit']")))
+            {
+                InitContactModification();
+                FillContactForm(newData);
+                SubmitContactModification();
+            }
+                return this;
         }
   
         public ContactHelper InitContactModification()
@@ -63,41 +69,25 @@ namespace WebAddressbookTests
         public ContactHelper FillContactForm(ContactData contact)
         {
             //FillContactForm
-            driver.FindElement(By.Name("firstname")).Clear();
-            driver.FindElement(By.Name("firstname")).SendKeys(contact.FirstName);
-            driver.FindElement(By.Name("middlename")).Clear();
-            driver.FindElement(By.Name("middlename")).SendKeys(contact.MiddleName);
-            driver.FindElement(By.Name("lastname")).Clear();
-            driver.FindElement(By.Name("lastname")).SendKeys(contact.LastName);
-            driver.FindElement(By.Name("nickname")).Clear();
-            driver.FindElement(By.Name("nickname")).SendKeys(contact.Nickname);
-            driver.FindElement(By.Name("title")).Clear();
-            driver.FindElement(By.Name("title")).SendKeys(contact.Title);
-            driver.FindElement(By.Name("company")).Clear();
-            driver.FindElement(By.Name("company")).SendKeys(contact.Company);
-            driver.FindElement(By.Name("address")).Clear();
-            driver.FindElement(By.Name("address")).SendKeys(contact.Address);
-            driver.FindElement(By.Name("home")).Clear();
-            driver.FindElement(By.Name("home")).SendKeys(contact.Home);
-            driver.FindElement(By.Name("mobile")).Clear();
-            driver.FindElement(By.Name("mobile")).SendKeys(contact.Mobile);
-            driver.FindElement(By.Name("work")).Clear();
-            driver.FindElement(By.Name("work")).SendKeys(contact.Work);
-            driver.FindElement(By.Name("fax")).Clear();
-            driver.FindElement(By.Name("fax")).SendKeys(contact.Fax);
-            driver.FindElement(By.Name("email")).Clear();
-            driver.FindElement(By.Name("email")).SendKeys(contact.Email1);
-            driver.FindElement(By.Name("email2")).Clear();
-            driver.FindElement(By.Name("email2")).SendKeys(contact.Email2);
-            driver.FindElement(By.Name("email3")).Clear();
-            driver.FindElement(By.Name("email3")).SendKeys(contact.Email3);
-            driver.FindElement(By.Name("homepage")).Clear();
-            driver.FindElement(By.Name("homepage")).SendKeys(contact.Homepage);
-            driver.FindElement(By.Name("address2")).SendKeys(contact.SAddress);
-            driver.FindElement(By.Name("phone2")).Clear();
-            driver.FindElement(By.Name("phone2")).SendKeys(contact.SHome);
-            driver.FindElement(By.Name("notes")).Clear();
-            driver.FindElement(By.Name("notes")).SendKeys(contact.SNotice);
+            Type(By.Name("firstname"), contact.FirstName);
+            Type(By.Name("middlename"), contact.MiddleName);
+            Type(By.Name("lastname"), contact.LastName);
+            Type(By.Name("nickname"), contact.Nickname);
+            Type(By.Name("title"), contact.Title);
+            Type(By.Name("company"), contact.Company);
+            Type(By.Name("address"), contact.Address);
+            Type(By.Name("home"), contact.Home);
+            Type(By.Name("mobile"), contact.Mobile);
+            Type(By.Name("work"), contact.Work);
+            Type(By.Name("fax"), contact.Fax);
+            Type(By.Name("email"), contact.Email1);
+            Type(By.Name("email2"), contact.Email2);
+            Type(By.Name("email3"), contact.Email3);
+            Type(By.Name("homepage"), contact.Homepage);
+            Type(By.Name("address2"), contact.SAddress);
+            Type(By.Name("phone2"), contact.SHome);
+            Type(By.Name("notes"), contact.SNotice);
+
             return this;
         }
 
