@@ -11,6 +11,8 @@ namespace WebAddressbookTests
 {
     public class GroupHelper : HelperBase
     {
+        private string baseURL;
+
         public GroupHelper(ApplicationManager manager) : base(manager)
         {
         }
@@ -18,26 +20,20 @@ namespace WebAddressbookTests
         public GroupHelper RemoveGroup(int v)
         {
             manager.Navigator.GoToGroupPage();
-            if (IsElementPresent(By.XPath("(//input[@name='selected[]'])[" + v + "]")))
-            {
-                SelectGroup(v);
-                RemoveGroup();
-                ReturnToGroupsPage();
-            }
+            SelectGroup(v);
+            RemoveGroup();
+            manager.Navigator.ReturnToGroupsPage();
             return this;
         }
 
         public GroupHelper Modify(int v, GroupData newData)
         {
             manager.Navigator.GoToGroupPage();
-            if (IsElementPresent(By.XPath("(//input[@name='selected[]'])[" + v + "]")))
-            {
-                SelectGroup(v);
-                InitGroupModification();
-                FillGroupForm(newData);
-                SubmitGroupModification();
-                ReturnToGroupsPage();
-            }
+            SelectGroup(v);
+            InitGroupModification();
+            FillGroupForm(newData);
+            SubmitGroupModification();
+            manager.Navigator.ReturnToGroupsPage();
             return this;
         }
 
@@ -87,12 +83,6 @@ namespace WebAddressbookTests
             return this;
         }
 
-        public GroupHelper ReturnToGroupsPage()
-        {
-            driver.FindElement(By.LinkText("group page")).Click();
-            return this;
-        }
-
         public GroupHelper RemoveGroup()
         {
             driver.FindElement(By.Name("delete")).Click();
@@ -105,5 +95,9 @@ namespace WebAddressbookTests
             return this;
         }
 
+        public bool IsGroupExists()
+        {
+            return IsElementPresent(By.XPath("(//input[@name='selected[]'])[" + 1 + "]"));
+        }
     }
 }

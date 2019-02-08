@@ -18,23 +18,18 @@ namespace WebAddressbookTests
 
         public ContactHelper RemoveContact(int v)
         {
-            if (IsElementPresent(By.XPath("//tr[@name='entry'][1]//img[@title='Edit']")))
-            {
+
                 SelectContact(v);
                 RemoveContact();
                 AcceptAlert();
-            }
             return this;
         }
 
         public ContactHelper Modify(ContactData newData)
         {
-            if (IsElementPresent(By.XPath("//tr[@name='entry'][1]//img[@title='Edit']")))
-            {
                 InitContactModification();
                 FillContactForm(newData);
                 SubmitContactModification();
-            }
                 return this;
         }
   
@@ -114,6 +109,11 @@ namespace WebAddressbookTests
         {
             driver.SwitchTo().Alert().Accept();
             return this;
+        }
+
+        public bool IsContactExists()
+        {
+            return IsElementPresent(By.XPath("//tr[@name='entry'][1]//img[@title='Edit']"));
         }
     }
 }
