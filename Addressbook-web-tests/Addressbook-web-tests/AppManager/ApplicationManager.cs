@@ -16,7 +16,7 @@ namespace WebAddressbookTests
         protected IWebDriver driver;
         private StringBuilder verificationErrors;
         protected string baseURL;
-
+        private int attempt;
         protected LoginHelper loginHelper;
         protected NavigationHelper navigationHelper;
         protected GroupHelper groupHelper;
@@ -29,6 +29,7 @@ namespace WebAddressbookTests
         {
             driver = new FirefoxDriver();
             baseURL = "http://localhost";
+            attempt = 0;
 
             loginHelper = new LoginHelper(this);
             navigationHelper = new NavigationHelper(this, baseURL);
@@ -58,6 +59,14 @@ namespace WebAddressbookTests
                 app.Value = newInstance;
             }
             return app.Value;
+        }
+
+        public int Attempt
+        {
+            get
+            {
+                return attempt;
+            }
         }
 
         public IWebDriver Driver

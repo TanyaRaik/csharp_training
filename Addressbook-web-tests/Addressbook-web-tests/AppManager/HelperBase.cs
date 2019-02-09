@@ -13,11 +13,14 @@ namespace WebAddressbookTests
     {
         protected ApplicationManager manager;
         protected IWebDriver driver;
+        protected int attempt;
+
 
         public HelperBase(ApplicationManager manager)
         {
             this.manager = manager;
             driver = manager.Driver;
+            attempt = manager.Attempt;
         }
 
         public void Type(By locator, string text)

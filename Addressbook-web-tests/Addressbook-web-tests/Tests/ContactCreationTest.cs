@@ -33,7 +33,6 @@ namespace WebAddressbookTests
             contact.SNotice = "b";
 
             app.Contacts.Create(contact);
-            app.Logout.Logout();
         }
 
         [Test]
@@ -59,7 +58,6 @@ namespace WebAddressbookTests
             contact.SNotice = "";
 
             app.Contacts.Create(contact);
-            app.Logout.Logout();
         }
     }
 }

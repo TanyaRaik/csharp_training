@@ -38,6 +38,11 @@ namespace WebAddressbookTests
             if (IsLoggedIn())
             {
                 driver.FindElement(By.LinkText("Logout")).Click();
+                do
+                {
+                    System.Threading.Thread.Sleep(1000);
+                    attempt++;
+                } while (driver.FindElements(By.Name("user")).Count == 0 && attempt < 60);
             }
         }
 
