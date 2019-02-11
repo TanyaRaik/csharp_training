@@ -22,6 +22,11 @@ namespace WebAddressbookTests
                 SelectContact(v);
                 RemoveContact();
                 AcceptAlert();
+            do
+            {
+                System.Threading.Thread.Sleep(1000);
+                attempt++;
+            } while (driver.FindElements(By.XPath("//tr[@name='entry']")).Count == 0 && attempt < 60);
             return this;
         }
 
@@ -45,6 +50,18 @@ namespace WebAddressbookTests
             FillContactForm(contact);
             SubmitContactCreation();
             return this;
+        }
+
+        public List<ContactData> GetContactList()
+        {
+            List<ContactData> contacts = new List<ContactData>();
+            manager.Navigator.OpenMainPage();
+            ICollection<IWebElement> firstNames = driver.FindElements(By.XPath("//tr//td[3]"));
+            foreach (IWebElement element in firstNames)
+            {
+                contacts.Add(new ContactData(element.Text));
+            }
+            return contacts;
         }
 
         public ContactHelper SubmitContactCreation()
@@ -95,7 +112,7 @@ namespace WebAddressbookTests
 
         public ContactHelper SelectContact(int rowNumber)
         {
-            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + rowNumber + "]")).Click();
+            driver.FindElement(By.XPath("(//input[@name='selected[]'])[" + (rowNumber+1) + "]")).Click();
             return this;
         }
 
