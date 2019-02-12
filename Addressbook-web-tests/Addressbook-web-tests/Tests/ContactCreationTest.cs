@@ -16,7 +16,7 @@ namespace WebAddressbookTests
         {
             ContactData contact = new ContactData("a");
             contact.MiddleName = "MiddleName";
-            contact.LastName = "LastName";
+            contact.LastName = "b";
             contact.Nickname = "Nickname";
             contact.Title = "Title";
             contact.Company = "Company";
