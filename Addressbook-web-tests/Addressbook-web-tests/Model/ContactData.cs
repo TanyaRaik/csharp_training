@@ -350,27 +350,36 @@ namespace WebAddressbookTests
             {
                 return true;
             }
-            return FirstName == other.FirstName
-                && LastName == other.LastName;
+            return LastName == other.LastName
+                &&FirstName == other.FirstName;
         }
 
         public override int GetHashCode()
         {
-            return FirstName.GetHashCode();
+            string[] name = new string[] { LastName, FirstName };
+            foreach (string element in name)
+            {
+            }
+            return name.GetHashCode();
         }
 
         public override string ToString()
         {
-            return "firstName=" + FirstName;
+            string[] name = new string[] { LastName, FirstName };
+            foreach (string element in name)
+            {
+
+            }
+            return "name=" + name;
         }
 
         public int CompareTo(ContactData other)
         {
-            if (object.ReferenceEquals(other, null))
+                if (object.ReferenceEquals(other, null))
             {
                 return 1;
             }
-            return FirstName.CompareTo(other.FirstName);
+            return firstName.CompareTo(other.firstName);
         }
     }
 }

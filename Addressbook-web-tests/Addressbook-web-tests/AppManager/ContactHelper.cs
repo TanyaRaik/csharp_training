@@ -56,7 +56,7 @@ namespace WebAddressbookTests
         {
             List<ContactData> contacts = new List<ContactData>();
             manager.Navigator.OpenMainPage();
-            string[] index = new string[] { "3", "2" };
+            string[] index = new string[] { "2", "3" };
             for (int i = 0; i < index.Length; i++)
             {
                 ICollection<IWebElement> onlyNames = driver.FindElements(By.XPath("//tr//td["+index[i]+"]"));
