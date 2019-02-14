@@ -37,10 +37,17 @@ namespace WebAddressbookTests
                 ICollection<IWebElement> elements = driver.FindElements(By.CssSelector("span.group"));
                 foreach (IWebElement element in elements)
                 {
-                    groupCashe.Add(new GroupData(element.Text));
+                    groupCashe.Add(new GroupData(element.Text) {
+                        Id = element.FindElement(By.TagName("input")).GetAttribute("value")
+                });
                 }
             }
             return new List<GroupData>(groupCashe);
+        }
+
+        internal int GetGroupCount()
+        {
+            return driver.FindElements(By.CssSelector("span.group")).Count();
         }
 
         public GroupHelper Modify(int v, GroupData newData)
@@ -74,6 +81,7 @@ namespace WebAddressbookTests
             InitGroupCreation();
             FillGroupForm(group);
             SubmitGroupCreation();
+            manager.Navigator.ReturnToGroupsPage();
             return this;
         }
 

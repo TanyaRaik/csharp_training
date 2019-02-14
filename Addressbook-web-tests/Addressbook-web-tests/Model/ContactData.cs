@@ -36,7 +36,7 @@ namespace WebAddressbookTests
 
         public ContactData(string firstName)
         {
-            this.firstName = firstName;
+                this.firstName = firstName;
         }
 
         public string SNotice
@@ -356,29 +356,22 @@ namespace WebAddressbookTests
 
         public override int GetHashCode()
         {
-            string[] name = new string[] { LastName, FirstName };
-            foreach (string element in name)
-            {
-            }
+            string[] name = new string[] { lastName, firstName };
             return name.GetHashCode();
         }
 
         public override string ToString()
         {
-            string[] name = new string[] { LastName, FirstName };
-            foreach (string element in name)
-            {
-
-            }
-            return "name=" + name;
+            return "name=" + lastName + firstName;
         }
 
         public int CompareTo(ContactData other)
         {
                 if (object.ReferenceEquals(other, null))
             {
-                return 1;
+                return lastName.CompareTo(other.lastName);
             }
+
             return firstName.CompareTo(other.firstName);
         }
     }

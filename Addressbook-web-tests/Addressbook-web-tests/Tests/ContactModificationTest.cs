@@ -15,12 +15,9 @@ namespace WebAddressbookTests
         [Test]
         public void ContactModificationTest()
         {
-            if (app.Contacts.IsContactExists())
+            if (!app.Contacts.IsContactExists())
             {
-                return;
-            }
-            {
-                ContactData contact = new ContactData("a");
+                ContactData contact = new ContactData("FirstName");
                 contact.MiddleName = "MiddleName";
                 contact.LastName = "LastName";
                 contact.Nickname = "Nickname";
@@ -41,9 +38,9 @@ namespace WebAddressbookTests
 
                 app.Contacts.Create(contact);
             }
-            ContactData newData = new ContactData("new");
+            ContactData newData = new ContactData("newF");
             newData.MiddleName = "new";
-            newData.LastName = "new";
+            newData.LastName = "newL";
             newData.Nickname = "new";
             newData.Title = "new";
             newData.Company = "new";

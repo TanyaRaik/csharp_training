@@ -13,13 +13,10 @@ namespace WebAddressbookTests
         [Test]
         public void ContactRemovalTest()
         {
-            if (app.Contacts.IsContactExists())
+            if (!app.Contacts.IsContactExists())
             {
 
-                return;
-            }
-            {
-                ContactData contact = new ContactData("a");
+                ContactData contact = new ContactData("FirstName");
                 contact.MiddleName = "MiddleName";
                 contact.LastName = "LastName";
                 contact.Nickname = "Nickname";
@@ -38,7 +35,7 @@ namespace WebAddressbookTests
                 contact.SHome = "b";
                 contact.SNotice = "b";
 
-                    app.Contacts.Create(contact);
+                app.Contacts.Create(contact);
             }
                 List<ContactData> oldContacts = app.Contacts.GetContactList();
 

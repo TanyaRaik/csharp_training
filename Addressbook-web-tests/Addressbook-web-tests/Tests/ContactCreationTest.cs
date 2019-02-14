@@ -14,8 +14,9 @@ namespace WebAddressbookTests
         [Test]
         public void CreateContactTest()
         {
-            ContactData contact = new ContactData("a");
+            ContactData contact = new ContactData("FirstName");
             contact.MiddleName = "MiddleName";
+            contact.LastName = "LastName";
             contact.Nickname = "Nickname";
             contact.Title = "Title";
             contact.Company = "Company";
@@ -49,6 +50,7 @@ namespace WebAddressbookTests
         {
             ContactData contact = new ContactData("");
             contact.MiddleName = "";
+            contact.LastName = "";
             contact.Nickname = "";
             contact.Title = "";
             contact.Company = "";

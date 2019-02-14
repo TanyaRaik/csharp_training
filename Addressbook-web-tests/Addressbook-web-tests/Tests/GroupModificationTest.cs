@@ -14,29 +14,24 @@ namespace WebAddressbookTests
         [Test]
         public void GroupModificationTest()
         {
-            if (app.Groups.IsGroupExists())
+            if (!app.Groups.IsGroupExists())
             {
-                if (app.Groups.IsGroupExists())
-                {
-                    return;
-                }
-                {
-                    GroupData group = new GroupData("a");
-                    group.Header = "b";
-                    group.Footer = "c";
-                    app.Groups.Create(group);
-                }
+                GroupData group = new GroupData("a");
+                group.Header = "b";
+                group.Footer = "c";
+                app.Groups.Create(group);
+            }
                 GroupData newData = new GroupData("new");
                 newData.Header = null;
                 newData.Footer = null;
 
-                List<GroupData> newGroups = app.Groups.GetGroupList();
+                List<GroupData> oldGroups = app.Groups.GetGroupList();
 
                 app.Groups.Modify(0, newData);
+                Assert.AreEqual(oldGroups.Count, app.Groups.GetGroupCount());
 
-                List<GroupData> oldGroups = app.Groups.GetGroupList();
+                List<GroupData> newGroups = app.Groups.GetGroupList();
                 Assert.AreEqual(oldGroups.Count, newGroups.Count);
-            }
         }
     }
 }
