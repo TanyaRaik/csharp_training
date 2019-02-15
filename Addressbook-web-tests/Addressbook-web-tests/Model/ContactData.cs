@@ -8,336 +8,88 @@ namespace WebAddressbookTests
 {
     public class ContactData : IEquatable<ContactData>, IComparable<ContactData>
     {
-        private string firstName;
-        private string middleName = "";
-        private string lastName = "";
-        private string nickname = "";
-        private string title = "";
-        private string company = "";
-        private string address = "";
-        private string home = "";
-        private string mobile = "";
-        private string work = "";
-        private string fax = "";
-        private string email1 = "";
-        private string email2 = "";
-        private string email3 = "";
-        private string homepage = "";
-        private string bDay = "";
-        private string bMonth = "";
-        private string bYear = "";
-        private string aDay = "";
-        private string aMonth = "";
-        private string aYear = "";
-        private string group = "";
-        private string sAddress = "";
-        private string sHome = "";
-        private string sNotice = "";
-
         public ContactData(string firstName)
         {
-                this.firstName = firstName;
+                FirstName = firstName;
         }
 
-        public string SNotice
-        {
-            get
-            {
-                return sNotice;
-            }
-            set
-            {
-                sNotice = value;
-            }
-        }
+        public string SNotice { get; set; }
+        
 
-        public string SHome
-        {
-            get
-            {
-                return sHome;
-            }
-            set
-            {
-                sHome = value;
-            }
-        }
+        public string SHome { get; set; }
+        
 
-        public string SAddress
-        {
-            get
-            {
-                return sAddress;
-            }
-            set
-            {
-                sAddress = value;
-            }
-        }
+        public string SAddress { get; set; }
+        
 
-        public string Group
-        {
-            get
-            {
-                return group;
-            }
-            set
-            {
-                group = value;
-            }
-        }
+        public string Group { get; set; }
+        
 
-        public string AYear
-        {
-            get
-            {
-                return aYear;
-            }
-            set
-            {
-                aYear = value;
-            }
-        }
+        public string AYear { get; set; }
+       
 
-        public string AMonth
-        {
-            get
-            {
-                return aMonth;
-            }
-            set
-            {
-                aMonth = value;
-            }
-        }
+        public string AMonth { get; set; }
+        
 
-        public string ADay
-        {
-            get
-            {
-                return aDay;
-            }
-            set
-            {
-                aDay = value;
-            }
-        }
+        public string ADay { get; set; }
+        
 
-        public string BYear
-        {
-            get
-            {
-                return bYear;
-            }
-            set
-            {
-                bYear = value;
-            }
-        }
+        public string BYear { get; set; }
+        
 
-        public string BMonth
-        {
-            get
-            {
-                return bMonth;
-            }
-            set
-            {
-                bMonth = value;
-            }
-        }
+        public string BMonth { get; set; }
 
-        public string BDay
-        {
-            get
-            {
-                return bDay;
-            }
-            set
-            {
-                bDay = value;
-            }
-        }
+        
+        public string BDay { get; set; }
+        
 
-        public string Homepage
-        {
-            get
-            {
-                return homepage;
-            }
-            set
-            {
-                homepage = value;
-            }
-        }
+        public string Homepage { get; set; }
+        
 
-        public string Email3
-        {
-            get
-            {
-                return email3;
-            }
-            set
-            {
-                email3 = value;
-            }
-        }
+        public string Email3 { get; set; }
+        
 
-        public string Email2
-        {
-            get
-            {
-                return email2;
-            }
-            set
-            {
-                email2 = value;
-            }
-        }
+        public string Email2 { get; set; }
+        
 
-        public string Email1
-        {
-            get
-            {
-                return email1;
-            }
-            set
-            {
-                email1 = value;
-            }
-        }
+        public string Email1 { get; set; }
+        
 
-        public string Fax
-        {
-            get
-            {
-                return fax;
-            }
-            set
-            {
-                fax = value;
-            }
-        }
+        public string Fax { get; set; }
+        
 
-        public string Work
-        {
-            get
-            {
-                return work;
-            }
-            set
-            {
-                work = value;
-            }
-        }
+        public string Work { get; set; }
+        
 
-        public string Mobile
-        {
-            get
-            {
-                return mobile;
-            }
-            set
-            {
-                mobile = value;
-            }
-        }
+        public string Mobile { get; set; }
+        
 
-        public string Home
-        {
-            get
-            {
-                return home;
-            }
-            set
-            {
-                home = value;
-            }
-        }
+        public string Home { get; set; }
+        
 
-        public string Address
-        {
-            get
-            {
-                return address;
-            }
-            set
-            {
-                address = value;
-            }
-        }
+        public string Address { get; set; }
+        
 
-        public string Company
-        {
-            get
-            {
-                return company;
-            }
-            set
-            {
-                company = value;
-            }
-        }
+        public string Company { get; set; }
+        
 
-        public string Title
-        {
-            get
-            {
-                return title;
-            }
-            set
-            {
-                title = value;
-            }
-        }
+        public string Title { get; set; }
+        
 
-        public string Nickname
-        {
-            get
-            {
-                return nickname;
-            }
-            set
-            {
-                nickname = value;
-            }
-        }
+        public string Nickname { get; set; }
+        
 
-        public string FirstName
-        {
-            get
-            {
-                return firstName;
-            }
-            set
-            {
-                firstName = value;
-            }
-        }
+        public string FirstName { get; set; }
+        
 
-        public string MiddleName
-        {
-            get
-            {
-                return middleName;
-            }
-            set
-            {
-                middleName = value;
-            }
-        }
+        public string MiddleName { get; set; }
+        
 
-        public string LastName
-        {
-            get
-            {
-                return lastName;
-            }
-            set
-            {
-                lastName = value;
-            }
-        }
+        public string LastName { get; set; }
+
+
+        public string Id { get; set; }
+
 
         public bool Equals(ContactData other)
         {
@@ -356,23 +108,23 @@ namespace WebAddressbookTests
 
         public override int GetHashCode()
         {
-            string[] name = new string[] { lastName, firstName };
+            string[] name = new string[] { LastName, FirstName };
             return name.GetHashCode();
         }
 
         public override string ToString()
         {
-            return "name=" + lastName + firstName;
+            return "name=" + LastName + FirstName;
         }
 
         public int CompareTo(ContactData other)
         {
                 if (object.ReferenceEquals(other, null))
             {
-                return lastName.CompareTo(other.lastName);
+                return LastName.CompareTo(other.LastName);
             }
 
-            return firstName.CompareTo(other.firstName);
+            return FirstName.CompareTo(other.FirstName);
         }
     }
 }
