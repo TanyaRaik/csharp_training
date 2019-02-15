@@ -56,18 +56,16 @@ namespace WebAddressbookTests
         {
             List<ContactData> contacts = new List<ContactData>();
             manager.Navigator.OpenMainPage();
-            {
-                ICollection<IWebElement> fullRow = driver.FindElements(By.Name("entry"));
+            ICollection<IWebElement> fullRow = driver.FindElements(By.Name("entry"));
 
                 foreach (IWebElement element in fullRow)
                 {
-                    string[] index = new string[] { "2", "3" };
-                    for (int i = 0; i < index.Length; i++)
-                    {
-                        element.FindElement(By.XPath("//tr//td[" + index[i] + "]"));
-                    }
-                    contacts.Add(new ContactData(element.Text));
+                string[] index = new string[] { "2", "3" };
+                for (int i = 0; i < index.Length; i++)
+                {
+                    fullRow = element.FindElements(By.XPath("//tr//td[" + index[i] + "]"));
                 }
+                contacts.Add(new ContactData(element.Text));
             }
             return contacts;
         }
