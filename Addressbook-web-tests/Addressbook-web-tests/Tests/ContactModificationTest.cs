@@ -32,9 +32,6 @@ namespace WebAddressbookTests
                 contact.Email2 = "b1@gmail.com";
                 contact.Email3 = "b2@gmail.com";
                 contact.Homepage = "Homepage";
-                contact.SAddress = "b";
-                contact.SHome = "b";
-                contact.SNotice = "b";
 
                 app.Contacts.Create(contact);
             }
@@ -53,9 +50,6 @@ namespace WebAddressbookTests
             newData.Email2 = "newb1@gmail.com";
             newData.Email3 = "newb2@gmail.com";
             newData.Homepage = "new";
-            newData.SAddress = "new";
-            newData.SHome = "new";
-            newData.SNotice = "new";
             List<ContactData> oldContacts = app.Contacts.GetContactList();
             ContactData oldData = oldContacts[0];
 

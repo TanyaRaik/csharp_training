@@ -24,7 +24,7 @@ namespace WebAddressbookTests
             RemoveGroup();
             manager.Navigator.ReturnToGroupsPage();
             return this;
-        }
+        } 
 
         private List<GroupData> groupCashe = null;
 
