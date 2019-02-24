@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace WebAddressbookTests
@@ -10,10 +11,16 @@ namespace WebAddressbookTests
     {
         private string allPhones;
         private string allEmails;
+        private string info;
 
-        public ContactData(string firstName)
+        public ContactData()
+        {
+        }
+
+        public ContactData(string firstName, string lastName)
         {
                 FirstName = firstName;
+                LastName = lastName;
         }
 
         public string SNotice { get; set; }
@@ -96,7 +103,7 @@ namespace WebAddressbookTests
 
         public bool Equals(ContactData other)
         {
-            if (object.ReferenceEquals(other, null))
+            if (Object.ReferenceEquals(other, null))
             {
                 return false;
             }
@@ -105,28 +112,33 @@ namespace WebAddressbookTests
             {
                 return true;
             }
-            return LastName == other.LastName
-                &&FirstName == other.FirstName;
+
+            return (FirstName == other.FirstName) && (LastName == other.LastName);
         }
 
         public override int GetHashCode()
         {
-            return (FirstName + " " + LastName).GetHashCode();
+            return FirstName.GetHashCode() + LastName.GetHashCode();
         }
 
         public override string ToString()
         {
-            return "name=" + LastName + FirstName;
+            return LastName + FirstName;
         }
 
         public int CompareTo(ContactData other)
         {
-                if (object.ReferenceEquals(other, null))
+            if (Object.ReferenceEquals(other, null))
             {
-                return LastName.CompareTo(other.LastName);
+                return 1;
             }
 
-            return FirstName.CompareTo(other.FirstName);
+            if (LastName.CompareTo(other.LastName) == 0)
+            {
+                return FirstName.CompareTo(other.FirstName);
+            }
+
+            return LastName.CompareTo(other.LastName);
         }
 
         public string AllPhones
@@ -169,13 +181,216 @@ namespace WebAddressbookTests
             }
         }
 
+        public string Info
+        {
+            get
+            {
+                if (info != null)
+                {
+                    return Info;
+                }
+                else
+                {
+                    info = "";
+
+                    if (FirstName != "")
+                    { info = info + FirstName; }
+
+                    if (MiddleName != "")
+                    {
+                        if (info == "")
+                        {
+                            info = MiddleName;
+                        }
+                        else
+                        {
+                            info = info + " " + MiddleName;
+                        }
+                    }
+
+                    if (LastName != "")
+                    {
+                        if (info == "")
+                        {
+                            info = LastName;
+                        }
+                        else
+                        {
+                            info = info + " " + LastName;
+                        }
+                    }
+
+                    if (info != "")
+                    {
+                        if (info == "")
+                        {
+                            info = Nickname;
+                        }
+                        else
+                        {
+                            info = info + "\r\n" + Nickname;
+                        }
+                    }
+
+                    if (Title != "")
+                    {
+                        if (info == "")
+                        {
+                            info = Title;
+                        }
+                        else
+                        {
+                            info = info + "\r\n" + Title;
+                        }
+                    }
+
+                    if (Company != "") 
+                    {
+                        if (info == "")
+                        {
+                            info = Company;
+                        }
+                        else
+                        {
+                            info = info + "\r\n" + Company;
+                        }
+                    }
+
+
+                    if (Address != "")
+                    {
+                        if (info == "")
+                        {
+                            info = Address;
+                        }
+                        else
+                        {
+                            info = info + "\r\n" + Address;
+                        }
+                    }
+
+                    if ((info != "") && (Home != "" || Mobile != "" || Work != "" || Fax != ""))
+                    {
+                        info = info + "\r\n";
+                    }
+
+                    if (Home != "") 
+                    {
+                        if (info == "")
+                        {
+                            info = "H: " + Home;
+                        }
+                        else
+                        {
+                            info = info + "\r\nH: " + Home;
+                        }
+                    }
+
+                    if (Mobile != "")
+                    {
+                        if (info == "")
+                        {
+                            info = "M: " + Mobile;
+                        }
+                        else
+                        {
+                            info = info + "\r\nM: " + Mobile;
+                        }
+                    }
+
+                    if (Work != "")
+                    {
+                        if (info == "")
+                        {
+                            info = "W: " + Work;
+                        }
+                        else
+                        {
+                            info = info + "\r\nW: " + Work;
+                        }
+                    }
+
+                    if (Fax != "")
+                    {
+                        if (info == "")
+                        {
+                            info = "F: " + Fax;
+                        }
+                        else
+                        {
+                            info = info + "\r\nF: " + Fax;
+                        }
+                    }
+
+                    if ((info != "") && (Email1 != "" || Email2 != "" || Email3 != "" || Homepage != ""))
+                    {
+                        info = info + "\r\n";
+                    }
+
+                    if (Email1 != "") 
+                    {
+                        if (info == "")
+                        {
+                            info = Email1;
+                        }
+                        else
+                        {
+                            info = info + "\r\n" + Email1;
+                        }
+                    }
+
+                    if (Email2 != "")
+                    {
+                        if (info == "")
+                        {
+                            info = Email2;
+                        }
+                        else
+                        {
+                            info = info + "\r\n" + Email2;
+                        }
+                    }
+
+                    if (Email3 != "")
+                    {
+                        if (info == "")
+                        {
+                            info = Email3;
+                        }
+                        else
+                        {
+                            info = info + "\r\n" + Email3;
+                        }
+                    }
+
+                    if (Homepage != "") 
+                    {
+                        if (info == "")
+                        {
+                            info = "Homepage:\r\n" + Homepage;
+                        }
+                        else
+                        {
+                            info = info + "\r\nHomepage:\r\n" + Homepage;
+                        }
+                    }
+
+                    return info;
+                }
+            }
+            set
+            {
+                Info = value;
+            }
+        }
+
         private string CleanUp(string phone)
         {
             if (phone == null || phone == "")
             {
                 return "";
             }
-            return phone.Replace(" ", "").Replace("-", "").Replace("(", "").Replace(")", "") + "\r\n";
+            return Regex.Replace(phone, "[ -()]", "") + "\r\n";
         }
     }
 }

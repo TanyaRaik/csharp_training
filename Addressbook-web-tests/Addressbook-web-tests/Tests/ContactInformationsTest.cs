@@ -16,7 +16,8 @@ namespace WebAddressbookTests
             if (!app.Contacts.IsContactExists())
             {
 
-                ContactData contact = new ContactData("FirstName");
+                ContactData contact = new ContactData();
+                contact.FirstName = "FirstName";
                 contact.MiddleName = "MiddleName";
                 contact.LastName = "LastName";
                 contact.Nickname = "Nickname";
@@ -31,9 +32,6 @@ namespace WebAddressbookTests
                 contact.Email2 = "b1@gmail.com";
                 contact.Email3 = "b2@gmail.com";
                 contact.Homepage = "Homepage";
-                contact.SAddress = "b";
-                contact.SHome = "b";
-                contact.SNotice = "b";
 
                 app.Contacts.Create(contact);
             }
@@ -50,7 +48,31 @@ namespace WebAddressbookTests
         [Test]
         public void TestContactDetailsInformation()
         {
+            if (!app.Contacts.IsContactExists())
+            {
+
+                ContactData contact = new ContactData();
+                contact.FirstName = "FirstName";
+                contact.MiddleName = "MiddleName";
+                contact.LastName = "LastName";
+                contact.Nickname = "Nickname";
+                contact.Title = "Title";
+                contact.Company = "Company";
+                contact.Address = "Address";
+                contact.Home = "Home";
+                contact.Mobile = "111";
+                contact.Work = "Work";
+                contact.Fax = "222";
+                contact.Email1 = "b@gmail.com";
+                contact.Email2 = "b1@gmail.com";
+                contact.Email3 = "b2@gmail.com";
+                contact.Homepage = "Homepage";
+
+                app.Contacts.Create(contact);
+            }
             ContactData fromForm = app.Contacts.GetContactInformationFromEditForm(0);
+            string fromPage = app.Contacts.GetContactInformationFromDetails(0);
+            Assert.AreEqual(fromPage, fromForm.Info);
         }
     }
 }

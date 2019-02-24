@@ -14,8 +14,10 @@ namespace WebAddressbookTests
         [Test]
         public void CreateContactTest()
         {
-            ContactData contact = new ContactData("FirstName");
+            ContactData contact = new ContactData();
+            contact.FirstName = "FirstName";
             contact.MiddleName = "MiddleName";
+            contact.LastName = "LastName";
             contact.Nickname = "Nickname";
             contact.Title = "Title";
             contact.Company = "Company";
@@ -23,6 +25,7 @@ namespace WebAddressbookTests
             contact.Home = "Home";
             contact.Mobile = "111";
             contact.Work = "Work";
+            contact.Fax = "4444";
             contact.Email1 = "b@gmail.com";
             contact.Email2 = "b1@gmail.com";
             contact.Email3 = "b2@gmail.com";
@@ -45,8 +48,10 @@ namespace WebAddressbookTests
         [Test]
         public void EmptyCreateContactTest()
         {
-            ContactData contact = new ContactData("");
+            ContactData contact = new ContactData();
+            contact.FirstName = "";
             contact.MiddleName = "";
+            contact.LastName = "";
             contact.Nickname = "";
             contact.Title = "";
             contact.Company = "";
@@ -59,9 +64,6 @@ namespace WebAddressbookTests
             contact.Email2 = "";
             contact.Email3 = "";
             contact.Homepage = "";
-            contact.SAddress = "";
-            contact.SHome = "";
-            contact.SNotice = "";
 
             List<ContactData> oldContacts = app.Contacts.GetContactList();
             app.Contacts.Create(contact);

@@ -16,7 +16,8 @@ namespace WebAddressbookTests
             if (!app.Contacts.IsContactExists())
             {
 
-                ContactData contact = new ContactData("FirstName");
+                ContactData contact = new ContactData();
+                contact.FirstName = "FirstName";
                 contact.MiddleName = "MiddleName";
                 contact.LastName = "LastName";
                 contact.Nickname = "Nickname";
@@ -31,9 +32,6 @@ namespace WebAddressbookTests
                 contact.Email2 = "b1@gmail.com";
                 contact.Email3 = "b2@gmail.com";
                 contact.Homepage = "Homepage";
-                contact.SAddress = "b";
-                contact.SHome = "b";
-                contact.SNotice = "b";
 
                 app.Contacts.Create(contact);
             }

@@ -27,8 +27,9 @@ namespace WebAddressbookTests
             string allEmails = cells[4].Text;
             string allPhones = cells[5].Text;
 
-            return new ContactData(firstName)
+            return new ContactData()
             {
+                FirstName = firstName,
                 LastName = lastName,
                 Address = address,
                 AllEmails  = allEmails,
@@ -37,7 +38,8 @@ namespace WebAddressbookTests
             };
         }
 
-               public ContactData GetContactInformationFromEditForm(int index)
+
+            public ContactData GetContactInformationFromEditForm(int index)
         {
             manager.Navigator.OpenMainPage();
             InitContactModification(0);
@@ -52,14 +54,16 @@ namespace WebAddressbookTests
             string homePhone = driver.FindElement(By.Name("home")).GetAttribute("value");
             string mobilePhone = driver.FindElement(By.Name("mobile")).GetAttribute("value");
             string workPhone = driver.FindElement(By.Name("work")).GetAttribute("value");
+            string fax = driver.FindElement(By.Name("fax")).GetAttribute("value");
 
             string email = driver.FindElement(By.Name("email")).GetAttribute("value");
             string email2 = driver.FindElement(By.Name("email2")).GetAttribute("value");
             string email3 = driver.FindElement(By.Name("email3")).GetAttribute("value");
             string homepage = driver.FindElement(By.Name("homepage")).GetAttribute("value");
 
-            return new ContactData(firstName)
+            return new ContactData()
             {
+                FirstName = firstName,
                 LastName = lastName,
                 Nickname = nickname,
                 MiddleName = middlename,
@@ -69,11 +73,25 @@ namespace WebAddressbookTests
                 Home = homePhone,
                 Mobile = mobilePhone,
                 Work = workPhone,
+                Fax = fax,
                Email1 = email,
                Email2 = email2,
                Email3 = email3,
                Homepage = homepage,
             };
+        }
+
+        public string GetContactInformationFromDetails(int index)
+        {
+            manager.Navigator.OpenMainPage();
+            OpenDetailsMode(index);
+            return driver.FindElement(By.Id("content")).Text;
+        }
+
+        private ContactHelper OpenDetailsMode(int index)
+        {
+            driver.FindElements(By.Name("entry"))[index].FindElements(By.TagName("td"))[6].Click();
+            return this;
         }
 
         public ContactHelper RemoveContact(int v)
@@ -130,28 +148,33 @@ namespace WebAddressbookTests
 
         public List<ContactData> GetContactList()
         {
-            if (contactCache == null)
+            
+            if (contactCache == null) 
             {
                 contactCache = new List<ContactData>();
-                manager.Navigator.OpenMainPage();
-                ICollection<IWebElement> fullRow = driver.FindElements(By.Name("entry"));
 
-                foreach (IWebElement element in fullRow)
+                manager.Navigator.OpenMainPage();
+                ICollection<IWebElement> contactStrings = driver.FindElements(By.Name("entry"));
+
+
+                foreach (IWebElement element in contactStrings)
                 {
-                    element.FindElement(By.TagName("input")).GetAttribute("value");
-                    string[] index = new string[] { "2", "3" };
-                    for (int i = 0; i < index.Length; i++)
+                    var cells = element.FindElements(By.TagName("td"));
+
+                    var item = new ContactData
                     {
-                        fullRow = element.FindElements(By.XPath("//tr//td[" + index[i] + "]"));
-                    }
-                    contactCache.Add(new ContactData(element.Text) {
-                        Id = element.FindElement(By.TagName("input")).GetAttribute("value")
-                    });
+                        Id = cells[0].FindElement(By.TagName("input")).GetAttribute("Id"),
+                        FirstName = cells[2].Text,
+                        LastName = cells[1].Text
+                    };
+                    contactCache.Add(item); 
                 }
+
             }
-            
+
             return new List<ContactData>(contactCache);
         }
+
 
         public ContactHelper SubmitContactCreation()
         {

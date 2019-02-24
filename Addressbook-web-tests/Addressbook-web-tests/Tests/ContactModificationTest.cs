@@ -17,7 +17,8 @@ namespace WebAddressbookTests
         {
             if (!app.Contacts.IsContactExists())
             {
-                ContactData contact = new ContactData("FirstName");
+                ContactData contact = new ContactData();
+                contact.FirstName = "FirstName";
                 contact.MiddleName = "MiddleName";
                 contact.LastName = "LastName";
                 contact.Nickname = "Nickname";
@@ -35,7 +36,8 @@ namespace WebAddressbookTests
 
                 app.Contacts.Create(contact);
             }
-            ContactData newData = new ContactData("newF");
+            ContactData newData = new ContactData();
+            newData.FirstName = "newF";
             newData.MiddleName = "new";
             newData.LastName = "newL";
             newData.Nickname = "new";
