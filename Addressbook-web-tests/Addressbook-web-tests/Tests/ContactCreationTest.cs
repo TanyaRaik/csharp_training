@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Xml.Serialization;
+using Newtonsoft.Json;
 using NUnit.Framework;
 
 namespace WebAddressbookTests
@@ -12,10 +15,10 @@ namespace WebAddressbookTests
     {
         public static IEnumerable<ContactData> RandomContactDataProvider()
         {
-            List<ContactData> groups = new List<ContactData>();
+            List<ContactData> contacts = new List<ContactData>();
             for (int i = 0; i < 3; i++)
             {
-                groups.Add(new ContactData(GenerateRandomString(10), GenerateRandomString(10))
+                contacts.Add(new ContactData(GenerateRandomString(10), GenerateRandomString(10))
                 {
                     
                     MiddleName = GenerateRandomString(20),
@@ -33,10 +36,23 @@ namespace WebAddressbookTests
                     Homepage = GenerateRandomString(20),
                 });
             }
-            return groups;
+            return contacts;
 
         }
- 
+
+        public static IEnumerable<ContactData> ContactDataFromXmlFile()
+        {
+            return (List<ContactData>)
+                 new XmlSerializer(typeof(List<ContactData>)).Deserialize(new StreamReader(@"contacts.xml"));
+        }
+
+        public static IEnumerable<ContactData> ContactDataFromJsonFile()
+        {
+            return JsonConvert.DeserializeObject<List<ContactData>>(
+                    File.ReadAllText(@"contacts.json")
+                );
+        }
+
         [Test, TestCaseSource("RandomContactDataProvider")]
         public void CreateContactTest(ContactData contact)
         {
