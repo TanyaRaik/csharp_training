@@ -49,11 +49,10 @@ namespace WebAddressbookTests
         public static IEnumerable<ContactData> ContactDataFromJsonFile()
         {
             return JsonConvert.DeserializeObject<List<ContactData>>(
-                    File.ReadAllText(@"contacts.json")
-                );
+                    File.ReadAllText(@"contacts.json"));
         }
 
-        [Test, TestCaseSource("RandomContactDataProvider")]
+        [Test, TestCaseSource("ContactDataFromXmlFile")]
         public void CreateContactTest(ContactData contact)
         {
             List<ContactData> oldContacts = app.Contacts.GetContactList();
