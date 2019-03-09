@@ -35,18 +35,17 @@ namespace WebAddressbookTests
 
                 app.Contacts.Create(contact);
             }
-                List<ContactData> oldContacts = app.Contacts.GetContactList();
 
-                app.Contacts.RemoveContact(0);
-
-                Assert.AreEqual(oldContacts.Count - 1, app.Contacts.GetContactCount());
-
-
-                List<ContactData> newContacts = app.Contacts.GetContactList();
+            List<ContactData> oldContacts = ContactData.GetAllContacts();
             ContactData toBeRemoved = oldContacts[0];
+            app.Contacts.RemoveContact(toBeRemoved);
+
+            Assert.AreEqual(oldContacts.Count - 1, ContactData.GetAllContacts().Count);
+
+            List<ContactData> newContacts = ContactData.GetAllContacts();
 
             oldContacts.RemoveAt(0);
-                Assert.AreEqual(oldContacts, newContacts);
+            Assert.AreEqual(oldContacts, newContacts);
 
             foreach (ContactData contact in newContacts)
             {

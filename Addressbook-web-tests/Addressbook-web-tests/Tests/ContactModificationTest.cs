@@ -52,14 +52,14 @@ namespace WebAddressbookTests
             newData.Email2 = "newb1@gmail.com";
             newData.Email3 = "newb2@gmail.com";
             newData.Homepage = "new";
-            List<ContactData> oldContacts = app.Contacts.GetContactList();
+            List<ContactData> oldContacts = ContactData.GetAllContacts();
             ContactData oldData = oldContacts[0];
 
-            app.Contacts.Modify(newData);
+            app.Contacts.Modify(oldData, newData);
 
-            Assert.AreEqual(oldContacts.Count, app.Contacts.GetContactCount());
+            Assert.AreEqual(oldContacts.Count, ContactData.GetAllContacts().Count);
 
-            List<ContactData> newContacts = app.Contacts.GetContactList();
+            List<ContactData> newContacts = ContactData.GetAllContacts(); ;
 
 
             Assert.AreEqual(oldContacts.Count, newContacts.Count);

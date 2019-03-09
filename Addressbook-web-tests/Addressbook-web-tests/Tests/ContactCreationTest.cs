@@ -17,7 +17,7 @@ namespace WebAddressbookTests
         public static IEnumerable<ContactData> RandomContactDataProvider()
         {
             List<ContactData> contacts = new List<ContactData>();
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 2; i++)
             {
                 contacts.Add(new ContactData(GenerateRandomString(10), GenerateRandomString(10))
                 {
@@ -53,15 +53,15 @@ namespace WebAddressbookTests
                     File.ReadAllText(@"contacts.json"));
         }
 
-        [Test, TestCaseSource("ContactDataFromJsonFile")]
+        [Test, TestCaseSource("RandomContactDataProvider")]
         public void CreateContactTest(ContactData contact)
         {
-            List<ContactData> oldContacts = app.Contacts.GetContactList();
+            List<ContactData> oldContacts = ContactData.GetAllContacts();
             app.Contacts.Create(contact);
 
-            Assert.AreEqual(oldContacts.Count+1, app.Contacts.GetContactCount());
+            Assert.AreEqual(oldContacts.Count+1, ContactData.GetAllContacts().Count);
 
-            List<ContactData> newContacts = app.Contacts.GetContactList();
+            List<ContactData> newContacts = ContactData.GetAllContacts();
             oldContacts.Add(contact);
             oldContacts.Sort();
             newContacts.Sort();
@@ -89,12 +89,12 @@ namespace WebAddressbookTests
             contact.Email3 = "";
             contact.Homepage = "";
 
-            List<ContactData> oldContacts = app.Contacts.GetContactList();
+            List<ContactData> oldContacts = ContactData.GetAllContacts();
             app.Contacts.Create(contact);
 
-            Assert.AreEqual(oldContacts.Count + 1, app.Contacts.GetContactCount());
+            Assert.AreEqual(oldContacts.Count + 1, ContactData.GetAllContacts().Count);
 
-            List<ContactData> newContacts = app.Contacts.GetContactList();
+            List<ContactData> newContacts = ContactData.GetAllContacts();
             oldContacts.Add(contact);
             oldContacts.Sort();
             newContacts.Sort();
