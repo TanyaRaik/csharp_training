@@ -21,8 +21,8 @@ namespace WebAddressbookTests
 
         public ContactData(string firstName, string lastName)
         {
-                FirstName = firstName;
-                LastName = lastName;
+            FirstName = firstName;
+            LastName = lastName;
         }
 
         [Column(Name = "notes")]
@@ -99,6 +99,9 @@ namespace WebAddressbookTests
 
         [Column(Name = "id"), PrimaryKey]
         public string Id { get; set; }
+
+        [Column(Name = "deprecated")]
+        public string Deprecated { get; set; }
 
 
         public bool Equals(ContactData other)
@@ -244,7 +247,7 @@ namespace WebAddressbookTests
                         }
                     }
 
-                    if (Company != "") 
+                    if (Company != "")
                     {
                         if (info == "")
                         {
@@ -274,7 +277,7 @@ namespace WebAddressbookTests
                         info = info + "\r\n";
                     }
 
-                    if (Home != "") 
+                    if (Home != "")
                     {
                         if (info == "")
                         {
@@ -327,7 +330,7 @@ namespace WebAddressbookTests
                         info = info + "\r\n";
                     }
 
-                    if (Email1 != "") 
+                    if (Email1 != "")
                     {
                         if (info == "")
                         {
@@ -363,7 +366,7 @@ namespace WebAddressbookTests
                         }
                     }
 
-                    if (Homepage != "") 
+                    if (Homepage != "")
                     {
                         if (info == "")
                         {
@@ -397,7 +400,18 @@ namespace WebAddressbookTests
         {
             using (AddressBookDB db = new AddressBookDB())
             {
-                return (from g in db.Contacts select g).ToList();
+                return (from c in db.Contacts.Where(x => x.Deprecated == "0000-00-00 00:00:00") select c).ToList();
+            }
+
+        }
+
+        public List<GroupData> GetGroupsByContact()
+        {
+            using (AddressBookDB db = new AddressBookDB())
+            {
+                return (from g in db.Groups
+                        from gcr in db.GCR.Where(p => p.ContactId == Id && p.GroupId == g.Id)
+                        select g).ToList();
             }
         }
     }

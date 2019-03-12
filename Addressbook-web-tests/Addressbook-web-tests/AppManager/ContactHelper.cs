@@ -38,8 +38,38 @@ namespace WebAddressbookTests
             };
         }
 
+        public void AddContactToGroup(ContactData contact, GroupData group)
+        {
+            manager.Navigator.OpenMainPage();
+            CleanGroupFilter();
+            SelectOneContact(contact.Id);
+            SelectGroupToAdd(group.Name);
+            CommitAddingContactToGroup();
+            new WebDriverWait(driver, TimeSpan.FromSeconds(10))
+                .Until(d => d.FindElements(By.CssSelector("div.msgbox")).Count > 0);
+        }
 
-            public ContactData GetContactInformationFromEditForm(int index)
+        public void CleanGroupFilter()
+        {
+            new SelectElement(driver.FindElement(By.Name("group"))).SelectByText("[all]");
+        }
+
+        public void SelectOneContact(string id)
+        {
+            driver.FindElement(By.Id(id)).Click();
+        }
+
+        public void SelectGroupToAdd(string name)
+        {
+            new SelectElement(driver.FindElement(By.Name("to_group"))).SelectByText(name);
+        }
+
+        public void CommitAddingContactToGroup()
+        {
+            driver.FindElement(By.Name("add")).Click();
+        }
+
+        public ContactData GetContactInformationFromEditForm(int index)
         {
             manager.Navigator.OpenMainPage();
             InitContactModification(0);

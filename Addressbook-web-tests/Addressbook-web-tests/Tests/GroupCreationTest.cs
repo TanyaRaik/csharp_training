@@ -96,15 +96,11 @@ namespace WebAddressbookTests
         [Test]
         public void TestDBConnectivity()
         {
-            DateTime start = DateTime.Now;
-            List<GroupData> fromUi = app.Groups.GetGroupList();
-            DateTime end = DateTime.Now;
-            System.Console.Out.WriteLine(end.Subtract(start));
 
-            start = DateTime.Now;
-            List<GroupData> fromDb = GroupData.GetAllGroups();
-            end = DateTime.Now;
-            System.Console.Out.WriteLine(end.Subtract(start));
+            foreach (ContactData contact in GroupData.GetAllGroups()[0].GetContacts())
+            {
+                Console.WriteLine(contact.Deprecated);
+            }
         }
     }
 }
