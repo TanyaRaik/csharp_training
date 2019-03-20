@@ -13,8 +13,25 @@ namespace WebAddressbookTests
         [Test]
         public void TestAddingContactToGroup()
         {
+            List<GroupData> createdGroups = GroupData.GetAllGroups();
+
+            if (createdGroups.Count < 1)
+            {
+                GroupData groups = new GroupData("a");
+                app.Groups.Create(groups);
+                createdGroups = GroupData.GetAllGroups();
+            }
+
             GroupData group = GroupData.GetAllGroups()[0];
-            List<ContactData> oldList = group.GetContacts(); 
+
+            List<ContactData> oldList = group.GetContacts();
+
+            if (oldList.Count < 1)
+            {
+                ContactData contactName = new ContactData("FirstName", "LastName");
+                app.Contacts.Create(contactName);
+            }
+
             ContactData contact = ContactData.GetAllContacts().Except(group.GetContacts()).First(); 
 
             app.Contacts.AddContactToGroup(contact, group);
