@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
@@ -15,21 +14,31 @@ namespace mantis_tests
     {
         protected IWebDriver driver;
         protected string baseURL;
-        private int attempt;
 
-        public RegistrationHelper Registration { get; set; }
+        public RegistrationHelper Registration { get; private set; }
 
-        public FtpHelper Ftp { get; set; }
+        public FtpHelper Ftp { get; private set; }
+
+        public LoginHelper loginHelper;
+        public ProjectHelper projectHelper;
+        public ManagmentMenuHelper menu;
 
         private static ThreadLocal<ApplicationManager> app = new ThreadLocal<ApplicationManager>();
 
         private ApplicationManager()
         {
             driver = new FirefoxDriver();
-            baseURL = "http://localhost";
-            attempt = 0;
+            baseURL = "http://localhost/mantisbt-2.20.0/";
             Registration = new RegistrationHelper(this);
-            Ftp = new FtpHelper(this);            
+            Ftp = new FtpHelper(this);
+
+            FirefoxOptions options = new FirefoxOptions();
+            options.BrowserExecutableLocation = @"c:\Program Files\Mozilla Firefox\firefox.exe";
+            options.UseLegacyImplementation = true;
+            Ftp = new FtpHelper(this);
+            loginHelper = new LoginHelper(this);
+            projectHelper = new ProjectHelper(this);
+            menu = new ManagmentMenuHelper(this, baseURL);
         }
 
         ~ApplicationManager()
@@ -44,23 +53,15 @@ namespace mantis_tests
             }
         }
 
-        public static ApplicationManager GetInstatnce()
+        public static ApplicationManager GetInstance()
         {
-            if (! app.IsValueCreated)
+            if (!app.IsValueCreated)
             {
                 ApplicationManager newInstance = new ApplicationManager();
-                newInstance.driver.Url = "http://localhost/mantisbt-2.20.0/login_page.php";
+                newInstance.driver.Url = newInstance.baseURL + "/login_page.php";
                 app.Value = newInstance;
             }
             return app.Value;
-        }
-
-        public int Attempt
-        {
-            get
-            {
-                return attempt;
-            }
         }
 
         public IWebDriver Driver
@@ -70,5 +71,29 @@ namespace mantis_tests
                 return driver;
             }
         }
+        public LoginHelper Auth
+        {
+            get
+            {
+                return loginHelper;
+            }
+        }
+
+        public ProjectHelper Project
+        {
+            get
+            {
+                return projectHelper;
+            }
+        }
+
+        public ManagmentMenuHelper Menu
+        {
+            get
+            {
+                return menu;
+            }
+        }
+
     }
 }

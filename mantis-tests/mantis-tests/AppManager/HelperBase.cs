@@ -13,16 +13,12 @@ namespace mantis_tests
     {
         protected ApplicationManager manager;
         protected IWebDriver driver;
-        protected int attempt;
-
 
         public HelperBase(ApplicationManager manager)
         {
             this.manager = manager;
             driver = manager.Driver;
-            attempt = manager.Attempt;
         }
-
         public void Type(By locator, string text)
         {
             if (text != null)
@@ -31,7 +27,6 @@ namespace mantis_tests
                 driver.FindElement(locator).SendKeys(text);
             }
         }
-
         public bool IsElementPresent(By by)
         {
             try

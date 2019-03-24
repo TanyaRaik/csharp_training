@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Firefox;
+using OpenQA.Selenium.Support.UI;
 
 namespace mantis_tests
 {
@@ -11,7 +13,7 @@ namespace mantis_tests
     {
         public RegistrationHelper(ApplicationManager manager) : base(manager) { }
 
-        public void Register(AccountData account)
+        public void Registrator(AccountData account)
         {
             OpenMainPage();
             OpenRegistrationForm();
@@ -19,25 +21,25 @@ namespace mantis_tests
             SubmitRegistration();
         }
 
-        private void OpenRegistrationForm()
+        public void OpenRegistrationForm()
         {
             driver.FindElements(By.CssSelector("span.bracket-link"))[0].Click();
         }
 
-        private void SubmitRegistration()
+        public void SubmitRegistration()
         {
-            throw new NotImplementedException();
+            driver.FindElement(By.CssSelector("[type='submit']")).Click();
         }
 
-        private void FillRegistrationForm(AccountData account)
+        public void FillRegistrationForm(AccountData account)
         {
             driver.FindElement(By.Name("username")).SendKeys(account.Name);
             driver.FindElement(By.Name("email")).SendKeys(account.Email);
         }
 
-        private void OpenMainPage()
+        public void OpenMainPage()
         {
-            manager.Driver.Url = "http://localhost/mantisbt-2.20.0/login_page.php";
+            manager.Driver.Url = "http://localhost:8080/mantisbt-2.20.0/login_page.php";
         }
     }
 }

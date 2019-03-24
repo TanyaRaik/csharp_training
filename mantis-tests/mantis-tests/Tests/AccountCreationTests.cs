@@ -2,6 +2,8 @@
 using System.Text;
 using System.Collections.Generic;
 using NUnit.Framework;
+using System.IO;
+using System.Net.FtpClient;
 
 namespace mantis_tests
 {
@@ -9,11 +11,14 @@ namespace mantis_tests
     public class AccountCreationTests : TestBase
     {
         [SetUp]
-        public void setUpConfig()
-        {
-            app.Ftp.BackupFile("");
-            app.Ftp.Upload("", null);
 
+        public void SetUpConfig()
+        {
+            app.Ftp.BackupFile("/config_inc.php");
+            using (Stream localFile = File.Open("C:/Users/tanechka/source/repos/csharp_training/mantis_tests/mantis_tests/config_inc.php", FileMode.Open))
+            {
+                app.Ftp.Upload("/config_inc.php", localFile);
+            }
         }
 
         [Test]
@@ -26,13 +31,15 @@ namespace mantis_tests
                 Email = "testuser@localhost.localdomain"
             };
 
-            app.Registration.Register(account);
+            app.Registration.Registrator(account);
+
         }
 
         [TearDown]
-        public void restoreConfig()
+
+        public void RestoreConfig()
         {
-            app.Ftp.RestoreBackupFile("");
+            app.Ftp.RestoreBackupFile("/config_inc.php");
         }
     }
 }
