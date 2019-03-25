@@ -24,10 +24,10 @@ namespace mantis_tests
                 app.Project.AddProject(project);
             }
 
+            oldList = app.Project.GetProjects();
 
             ProjectData existingProject = oldList[0];
 
-            oldList = app.Project.GetProjects();
             app.Project.Remove(existingProject);
 
             List<ProjectData> newList = app.Project.GetProjects();
