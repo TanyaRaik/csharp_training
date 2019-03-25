@@ -13,6 +13,7 @@ namespace mantis_tests
     {
         [Test]
         public void TestAddNewIssue()
+
         {
             AccountData account = new AccountData()
             {
