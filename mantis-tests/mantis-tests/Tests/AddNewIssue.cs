@@ -23,7 +23,7 @@ namespace mantis_tests
 
             ProjectData project = new ProjectData()
             {
-                Id = "1"
+                Id = "3"
             };
 
             IssueData issue = new IssueData()

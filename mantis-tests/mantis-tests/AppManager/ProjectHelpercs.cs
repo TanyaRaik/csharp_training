@@ -25,7 +25,7 @@ namespace mantis_tests
             return this;
         }
 
-        public void Remove(ProjectData project)
+        public void RemoveProject(ProjectData project)
         {
             manager.Menu.GoToManageMenu();
             manager.Menu.GoToProjectForm();

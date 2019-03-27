@@ -12,16 +12,22 @@ namespace mantis_tests
         [Test]
         public void TestAddProject()
         {
-            List<ProjectData> oldList = app.Project.GetProjects();
+            AccountData account = new AccountData()
+            {
+                Name = "administrator",
+                Password = "root"
+            };
+
+            List<ProjectData> oldList = app.API.GetAllProjects(account);
 
             ProjectData newProject = new ProjectData()
             {
-                Name = "project",
+                Name = GenerateRandomString(10),
             };
 
-            oldList = app.Project.GetProjects();
-            app.Project.AddProject(newProject);
-            List<ProjectData> newList = app.Project.GetProjects();
+            oldList = app.API.GetAllProjects(account);
+            app.API.AddProject(account, newProject);
+            List<ProjectData> newList = app.API.GetAllProjects(account);
 
             oldList.Add(newProject);
             oldList.Sort();
